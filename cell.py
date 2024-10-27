@@ -1,13 +1,14 @@
+from email import message
 import sys
-from tkinter import Button, Label
+from tkinter import Button, Label, messagebox
 import random
+import tkinter
 from tkinter.font import Font
 import settings
-import ctypes
 
 class Cell:
     all = []
-    code = 0
+    code = False
     cell_count = settings.CELL_COUNT
     mine_count = settings.MINES_COUNT
     cell_count_label_object = None
@@ -58,14 +59,13 @@ class Cell:
         if self.is_mine:
             self.show_mine()
         else:
-            #self.cell_btn_object.configure(state = "disabled")
             if self.surrounded_cells_mines_length == 0:
                 for cell_obj in self.surrounded_cells:
                     cell_obj.show_cell()
             self.show_cell()
             # If Mines count is equal to the cells left count, the player won
             if Cell.cell_count == settings.MINES_COUNT:
-                 ctypes.windll.user32.MessageBoxW(0, 'You won!', 'Congratulations', 0)
+                 Cell.code = messagebox.askokcancel(title="Congratulations", message="You won! New game?")
 
         # Cancel left and right click events if the cell is already opened
         self.cell_btn_object.unbind('<Button-1>')
@@ -121,8 +121,8 @@ class Cell:
        self.cell_btn_object.configure(
             bg = "red"
         ) 
-       Cell.code = ctypes.windll.user32.MessageBoxW(0, 'You clicked on a mine!', 'Game Over', 5)
-       sys.exit()
+       Cell.code = messagebox.askretrycancel(title="Game Over", message="You clicked on a mine!")
+       #sys.exit()
         
 
     def right_click_actions(self, event):
