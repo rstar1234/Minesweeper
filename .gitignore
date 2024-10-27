@@ -82,6 +82,7 @@ StyleCopReport.xml
 *.ipdb
 *.pgc
 *.pgd
+*.pyproj
 *.rsp
 *.sbr
 *.tlb
@@ -97,6 +98,9 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+
+# Visual studio solution files
+*.sln
 
 # Chutzpah Test files
 _Chutzpah*
